@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TenPercent</string>
+    <string name="musica">Musica</string>
+    <string name="prueba">Prueba</string>
+    <string name="presion_larga">Presión Larga</string>
+    <string name="agitacion">agitacion</string>
+    <string name="Jugar">Jugar</string>
+    <string name="Detener">Detener</string>
+</resources>
