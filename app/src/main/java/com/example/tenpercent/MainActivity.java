@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MediaPlayer musicaVictoria, musicaFondo;
+    private MediaPlayer musicaVictoria, musicaFondo, musicaDerrota;
     private TextView tv2, tvPuntos;
     private Button button, button2;
     private GestureDetector gestos;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         musicaFondo = MediaPlayer.create(this, R.raw.giovanni_giorgio);
         musicaVictoria = MediaPlayer.create(this, R.raw.siuu);
+        musicaDerrota = MediaPlayer.create(this, R.raw.no_god_please_no);
 
         button = findViewById(R.id.button);
         button2 = findViewById(R.id.button2);
@@ -151,10 +152,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void detenerMusica() {
         if (musicaFondo.isPlaying()) {
-            musicaFondo.pause();
+            musicaFondo.stop();
         }
         if (musicaVictoria.isPlaying()) {
-            musicaVictoria.pause();
+            musicaVictoria.stop();
         }
     }
 
@@ -163,13 +164,14 @@ public class MainActivity extends AppCompatActivity {
         detenerMusica();
 
         // Mostramos los puntos obtenidos
-        String mensajePuntos = getResources().getString(puntos);
+        String mensajePuntos = ("Puntaje: " + puntos);
         tv2.setText(mensajePuntos);
     }
 
     private void reiniciarJuego() {
         puntos = 0;
         tvPuntos.setText(String.valueOf(puntos));
+        tvPuntos.setText(R.string.musica);
     }
 
     @Override
@@ -225,6 +227,9 @@ public class MainActivity extends AppCompatActivity {
 
                 incrementarPuntos();
                 actualizarAccionActual();
+            } else if (juegoIniciado) {
+                musicaDerrota.start();
+                detenerJuego();
             }
         }
 
@@ -235,6 +240,9 @@ public class MainActivity extends AppCompatActivity {
 
                 incrementarPuntos();
                 actualizarAccionActual();
+            } else if (juegoIniciado) {
+                musicaDerrota.start();
+                detenerJuego();
             }
             return true;
         }
@@ -247,6 +255,12 @@ public class MainActivity extends AppCompatActivity {
                     acierto = true;
                 } else if (e2.getY() < e1.getY() && accionActualId == R.string.deslizar_arriba) {
                     acierto = true;
+                } else if (e2.getY() > e1.getY() && accionActualId != R.string.deslizar_abajo) {
+                    musicaDerrota.start();
+                    detenerJuego();
+                } else if (e2.getY() < e1.getY() && accionActualId != R.string.deslizar_arriba) {
+                    musicaDerrota.start();
+                    detenerJuego();
                 }
 
                 if (acierto) {
