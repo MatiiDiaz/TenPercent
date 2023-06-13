@@ -51,14 +51,21 @@ public class MainActivity extends AppCompatActivity {
                 if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                     Resources res = getResources();
                     String acceleration = res.getString(R.string.agitacion);
-                    if ((event.values[0]>5 || event.values[0]<-5) && n && contador==0){
+                    if ((event.values[0]>8 || event.values[0]<-8) && n && contador==0){
                         contador++;
                     } else {
-                        if ((event.values[0]>5 || event.values[0]<-5) && n && contador==1){
+                        if ((event.values[0]>-8 || event.values[0]<8) && n && contador==1){
                             musicaFondo.pause();
                             musicaVictoria.start();
+                            musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                                    musicaFondo.start();
+                                }
+                            });
                             contador=0;
-                            tv2.setText("Agitación");
+                            tv2.setText(R.string.agitacion);
                         }
                     }
                 }
@@ -76,8 +83,12 @@ public class MainActivity extends AppCompatActivity {
                 button.setEnabled(false);
                 button2.setEnabled(true);
                 n=true;
-                musicaVictoria.stop();
-                musicaFondo.start();
+                if (!musicaFondo.isPlaying()) {
+                    // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                    musicaFondo.reset();
+                    musicaFondo = MediaPlayer.create(MainActivity.this, R.raw.giovanni_giorgio);
+                    musicaFondo.start();
+                }
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 button.setEnabled(true);
                 button2.setEnabled(false);
                 n=false;
-                musicaFondo.stop();
+                if (musicaFondo.isPlaying()) {
+                    musicaFondo.pause();
+                }
+                // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                musicaFondo.reset();
+                musicaFondo = MediaPlayer.create(MainActivity.this, R.raw.giovanni_giorgio);
             }
         });
     }
@@ -106,25 +122,27 @@ public class MainActivity extends AppCompatActivity {
                 musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
+                        // Restablece el estado del MediaPlayer y vuelve a inicializarlo
                         musicaFondo.start();
                     }
                 });
-                tv2.setText("Presion Larga");
+                tv2.setText(R.string.presion_larga);
             }
         }
 
         @Override
         public boolean onDoubleTap(@NonNull MotionEvent e) {
             if(n){
-                musicaFondo.stop();
+                musicaFondo.pause();
                 musicaVictoria.start();
                 musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
+                        // Restablece el estado del MediaPlayer y vuelve a inicializarlo
                         musicaFondo.start();
                     }
                 });
-                tv2.setText("Doble Tap");
+                tv2.setText(R.string.doble_tap);
             }
             return true;
         }
@@ -136,51 +154,34 @@ public class MainActivity extends AppCompatActivity {
                     if(e2.getY()>e1.getY()) {
                         musicaFondo.pause();
                         musicaVictoria.start();
-                        musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                musicaFondo.start();
-                            }
-                        });
-                        tv2.setText("Desplazamiento a:\nAbajo/Derecha");
+                        // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                        musicaFondo.start();
+                        tv2.setText(R.string.der_abajo);
                     } else {
                         musicaFondo.pause();
                         musicaVictoria.start();
-                        musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                musicaFondo.start();
-                            }
-                        });
-                        tv2.setText("Desplazamiento a:\nArriba/Derecha");
+                        // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                        musicaFondo.start();
+                        tv2.setText(R.string.der_arriba);
                     }
                 } else {
                     if(e2.getY()>e1.getY()) {
                         musicaFondo.pause();
                         musicaVictoria.start();
-                        musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                musicaFondo.start();
-                            }
-                        });
-                        tv2.setText("Desplazamiento a:\nAbajo/Izquierda");
+                        // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                        musicaFondo.start();
+                        tv2.setText(R.string.izq_abajo);
                     } else {
                         musicaFondo.pause();
                         musicaVictoria.start();
-                        musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                musicaFondo.start();
-                            }
-                        });
-                        tv2.setText("Desplazamiento a:\nArriba/Izquierda");
+                        // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+                        musicaFondo.start();
+                        tv2.setText(R.string.izq_arriba);
                     }
                 }
             }
             return true;
         }
-
     }
 
     public void music(View view) {
@@ -221,10 +222,35 @@ public class MainActivity extends AppCompatActivity {
         musicaVictoria.release();
         musicaVictoria = null;
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(evento);
+        if (musicaFondo.isPlaying()) {
+            musicaFondo.pause();
+        }
+    }
 
     @Override
-    protected void onStop(){
-        super.onStop();
-        stopMusic();
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(evento, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        if (n && !musicaFondo.isPlaying()) {
+            // Restablece el estado del MediaPlayer y vuelve a inicializarlo
+            musicaFondo.reset();
+            musicaFondo = MediaPlayer.create(MainActivity.this, R.raw.giovanni_giorgio);
+            musicaFondo.start();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (musicaFondo != null) {
+            musicaFondo.release();
+        }
+        if (musicaVictoria != null) {
+            musicaVictoria.release();
+        }
     }
 }
