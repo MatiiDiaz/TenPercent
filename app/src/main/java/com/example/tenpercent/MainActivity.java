@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private ImageButton btnSettings;
 
     private Button btnModoCarrera, btnModoLegendario;
 
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnModoCarrera = findViewById(R.id.btnModoCarrera);
         btnModoLegendario = findViewById(R.id.btnModoLegendario);
+        btnSettings = findViewById(R.id.btnSettings);
+
 
         btnModoCarrera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
         btnModoLegendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, carreraActivity.class);
+                Intent intent = new Intent(MainActivity.this, legendarioActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });

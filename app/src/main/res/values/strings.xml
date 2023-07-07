@@ -7,20 +7,31 @@
     <string name="simple_tap">Tap</string>
     <string name="doble_tap">Doble Tap</string>
     <string name="puntos_obtenidos">Puntos obtenidos</string>
-    <string name="der_arriba">Desplazamiento a:
-        Arriba/Derecha</string>
-    <string name="izq_abajo">Desplazamiento a:
-        Abajo/Izquierda</string>
-    <string name="izq_arriba">Desplazamiento a:
-        Arriba/Izquierda</string>
     <string name="Jugar">Jugar</string>
     <string name="Detener">Detener</string>
     <string name="deslizar">Desliza</string>
     <string name="deslizar_abajo">Desliza Abajo</string>
     <string name="deslizar_arriba">Desliza Arriba</string>
     <string name="designed_by">Diseñado por Matias Diaz</string>
-    <string name="sponsored_by">Patrocinado por Lircay Hub</string>
+    <string name="sponsored_by">Patrocinado por LircayHub</string>
     <string name="copyright">© Copyright 2023–2023</string>
     <string name="vidas">Vidas</string>
+    <string name="vidas_legendario">MODO LEGENDARIO</string>
+    <string name="title_activity_settings">Records</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 </resources>

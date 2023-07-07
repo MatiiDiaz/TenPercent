@@ -2,8 +2,11 @@ package com.example.tenpercent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.IconCompat;
 
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,6 +19,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -24,6 +28,7 @@ public class carreraActivity extends AppCompatActivity {
 
     private MediaPlayer musicaVictoria, musicaFondo, musicaDerrota;
     private TextView tv2, tvPuntos;
+    private ImageView ivIcon;
     private Button button, button2;
     private GestureDetector gestos;
     private SensorManager sensorManager;
@@ -36,14 +41,12 @@ public class carreraActivity extends AppCompatActivity {
     private CountDownTimer timer;
     private long tiempoRestante = 5000; // 5 segundos en milisegundos
     private static final int LIMITE_PUNTOS_1 = 5;
-    private static final int LIMITE_PUNTOS_2 = 10;
+    private static final int LIMITE_PUNTOS_2 = 15;
     private static final long TIEMPO_INICIAL = 5000; // 5 segundos en milisegundos
-    private static final long TIEMPO_NIVEL_1 = 3000; // 4 segundos en milisegundos
-    private static final long TIEMPO_NIVEL_2 = 1500; // 3 segundos en milisegundos
+    private static final long TIEMPO_NIVEL_1 = 3000; // 3 segundos en milisegundos
+    private static final long TIEMPO_NIVEL_2 = 1500; // 1,5 segundos en milisegundos
 
     private static final String KEY_PUNTAJE_CARRERA = "key_puntaje_carrera";
-
-
 
     private final int[] accionIdArray = {
             R.string.simple_tap,
@@ -53,13 +56,24 @@ public class carreraActivity extends AppCompatActivity {
             R.string.deslizar_arriba,
             R.string.deslizar_abajo
     };
+
     private int accionActualId;
     private Random random;
+    private IconCompat[] iconIdArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrera);
+
+        iconIdArray = new IconCompat[] {
+                IconCompat.createWithResource(this, R.drawable.tap_icon),
+                IconCompat.createWithResource(this, R.drawable.double_tap_icon),
+                IconCompat.createWithResource(this, R.drawable.long_press_icon),
+                IconCompat.createWithResource(this, R.drawable.shake_icon),
+                IconCompat.createWithResource(this, R.drawable.swipe_up_icon),
+                IconCompat.createWithResource(this, R.drawable.swipe_down_icon)
+        };
 
         musicaFondo = MediaPlayer.create(this, R.raw.giovanni_giorgio);
         musicaVictoria = MediaPlayer.create(this, R.raw.siuu);
@@ -67,6 +81,7 @@ public class carreraActivity extends AppCompatActivity {
 
         button = findViewById(R.id.button);
         button2 = findViewById(R.id.button2);
+        ivIcon = findViewById(R.id.ivIcon);
         tv2 = findViewById(R.id.tv2);
         tvPuntos = findViewById(R.id.tvPuntos);
         tvVidas = findViewById(R.id.tvVidas);
@@ -98,8 +113,6 @@ public class carreraActivity extends AppCompatActivity {
             public void onSensorChanged(SensorEvent event) {
                 if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && juegoIniciado) {
                     if ((event.values[0] > 8 || event.values[0] < -8) && accionActualId == R.string.agitacion) {
-                        musicaVictoria.start();
-
                         incrementarPuntos();
                         actualizarAccionActual();
 
@@ -123,10 +136,7 @@ public class carreraActivity extends AppCompatActivity {
             tvPuntos.setText(mensajePuntos);
             String mensajeVidas = ("Vidas: " + vidas);
             tvVidas.setText(mensajeVidas);
-
-            if (!musicaFondo.isPlaying()) {
-                musicaFondo.start();
-            }
+            musicaFondo.start();
 
             actualizarAccionActual();
             reiniciarTemporizador();
@@ -137,7 +147,8 @@ public class carreraActivity extends AppCompatActivity {
         vidas--;
         String mensajeVidas = ("Vidas: " + vidas);
         tvVidas.setText(mensajeVidas);
-
+        musicaVictoria.stop();
+        musicaDerrota.start();
         if (vidas <= 0 && juegoIniciado) {
             timer.cancel();
             detenerJuego();
@@ -207,6 +218,8 @@ public class carreraActivity extends AppCompatActivity {
 
     private int obtenerAccionAleatoria() {
         int randomIndex = random.nextInt(accionIdArray.length);
+        Drawable iconDrawable = iconIdArray[randomIndex].loadDrawable(this);
+        ivIcon.setImageDrawable(iconDrawable);
         return accionIdArray[randomIndex];
     }
 
@@ -218,16 +231,18 @@ public class carreraActivity extends AppCompatActivity {
     }
 
     private void incrementarPuntos() {
+        musicaDerrota.stop();
         puntos++;
         String mensajePuntos = ("Puntaje: " + puntos);
         tvPuntos.setText(mensajePuntos);
+        if (puntos % 10 == 0) {
+            musicaVictoria.start();
+        }
         // Actualizar tiempoRestante según los límites de puntos alcanzados
         if (puntos >= LIMITE_PUNTOS_2) {
             tiempoRestante = TIEMPO_NIVEL_2;
-            Log.d("a","Nivel 3");
         } else if (puntos >= LIMITE_PUNTOS_1) {
             tiempoRestante = TIEMPO_NIVEL_1;
-            Log.d("a","Nivel 2");
         }
         // Reiniciar el temporizador con el nuevo tiempoRestante
         reiniciarTemporizador();
@@ -281,13 +296,10 @@ public class carreraActivity extends AppCompatActivity {
         @Override
         public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
             if (juegoIniciado && accionActualId == R.string.simple_tap) {
-                musicaVictoria.start();
-
                 incrementarPuntos();
                 actualizarAccionActual();
                 reiniciarTemporizador();
             } else if (juegoIniciado) {
-                musicaDerrota.start();
                 restarVida();
             }
             return true;
@@ -296,13 +308,10 @@ public class carreraActivity extends AppCompatActivity {
         @Override
         public void onLongPress(@NonNull MotionEvent e) {
             if (juegoIniciado && accionActualId == R.string.presion_larga) {
-                musicaVictoria.start();
-
                 incrementarPuntos();
                 actualizarAccionActual();
                 reiniciarTemporizador();
             } else if (juegoIniciado) {
-                musicaDerrota.start();
                 restarVida();
             }
         }
@@ -310,13 +319,10 @@ public class carreraActivity extends AppCompatActivity {
         @Override
         public boolean onDoubleTap(@NonNull MotionEvent e) {
             if (juegoIniciado && accionActualId == R.string.doble_tap) {
-                musicaVictoria.start();
-
                 incrementarPuntos();
                 actualizarAccionActual();
                 reiniciarTemporizador();
             } else if (juegoIniciado) {
-                musicaDerrota.start();
                 restarVida();
             }
             return true;
@@ -331,15 +337,12 @@ public class carreraActivity extends AppCompatActivity {
                 } else if (e2.getY() < e1.getY() && accionActualId == R.string.deslizar_arriba) {
                     acierto = true;
                 } else if (e2.getY() > e1.getY() && accionActualId != R.string.deslizar_abajo) {
-                    musicaDerrota.start();
                     restarVida();
                 } else if (e2.getY() < e1.getY() && accionActualId != R.string.deslizar_arriba) {
-                    musicaDerrota.start();
                     restarVida();
                 }
 
                 if (acierto) {
-                    musicaVictoria.start();
                     incrementarPuntos();
                     actualizarAccionActual();
                     reiniciarTemporizador();

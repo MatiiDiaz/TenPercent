@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/tvPuntos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/puntos"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/tvVidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPuntos"
+        android:layout_centerHorizontal="true"
+        android:text="@string/vidas_legendario"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="32sp" />
+
+
+    <LinearLayout
+        android:layout_width="382dp"
+        android:layout_height="598dp"
+        android:layout_below="@+id/tvPuntos"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/prueba"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="32sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#87B63B"
+                android:text="@string/Jugar" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#C63131"
+                android:text="@string/Detener" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+
+</RelativeLayout>
