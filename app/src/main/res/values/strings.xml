@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">TenPercent</string>
-    <string name="musica">Musica</string>
-    <string name="prueba">Prueba</string>
+    <string name="musica">Puntos</string>
+    <string name="prueba">Jugar</string>
     <string name="presion_larga">Presión Larga</string>
     <string name="agitacion">Agitacion</string>
     <string name="simple_tap">Tap</string>
     <string name="doble_tap">Doble Tap</string>
-    <string name="puntos_obtenidos">Puntosobtenidos</string>
+    <string name="puntos_obtenidos">Puntos obtenidos</string>
     <string name="der_arriba">Desplazamiento a:
         Arriba/Derecha</string>
     <string name="izq_abajo">Desplazamiento a:
@@ -18,4 +18,8 @@
     <string name="deslizar">Desliza</string>
     <string name="deslizar_abajo">Desliza Abajo</string>
     <string name="deslizar_arriba">Desliza Arriba</string>
+    <string name="designed_by">Diseñado por Matias Diaz</string>
+    <string name="sponsored_by">Patrocinado por Lircay Hub</string>
+    <string name="copyright">© Copyright 2023–2023</string>
+
 </resources>

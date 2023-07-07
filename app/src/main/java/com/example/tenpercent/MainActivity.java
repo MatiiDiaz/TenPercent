@@ -3,19 +3,16 @@ package com.example.tenpercent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -26,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv2, tvPuntos;
     private Button button, button2;
     private GestureDetector gestos;
-    public ImageButton imageButton, imageButton2, imageButton3;
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private SensorEventListener evento;
@@ -89,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                         incrementarPuntos();
                         actualizarAccionActual();
+
                     }
                 }
             }
@@ -210,12 +207,15 @@ public class MainActivity extends AppCompatActivity {
     class ListenerGestos extends GestureDetector.SimpleOnGestureListener {
 
         @Override
-        public boolean onSingleTapUp(@NonNull MotionEvent e) {
+        public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
             if (juegoIniciado && accionActualId == R.string.simple_tap) {
                 musicaVictoria.start();
 
                 incrementarPuntos();
                 actualizarAccionActual();
+            } else if (juegoIniciado) {
+                musicaDerrota.start();
+                detenerJuego();
             }
             return true;
         }
@@ -270,47 +270,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             return true;
-        }
-    }
-
-    public void music(View view) {
-        switch (view.getId()) {
-            case R.id.imageButton:
-                if (musicaVictoria == null) {
-                    musicaVictoria = MediaPlayer.create(this, R.raw.siuu);
-                }
-                musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        stopMusic();
-                    }
-                });
-                musicaVictoria.start();
-                break;
-            case R.id.imageButton2:
-                if (musicaVictoria != null) {
-                    musicaFondo.pause();
-                }
-                break;
-            case R.id.imageButton3:
-                if (musicaVictoria == null) {
-                    musicaVictoria = MediaPlayer.create(this, R.raw.siuu);
-                }
-                musicaVictoria.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        musicaVictoria.start();
-                    }
-                });
-                musicaVictoria.start();
-                break;
-        }
-    }
-
-    private void stopMusic() {
-        if (musicaVictoria != null) {
-            musicaVictoria.release();
-            musicaVictoria = null;
         }
     }
 }
