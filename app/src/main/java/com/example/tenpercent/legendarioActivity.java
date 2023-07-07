@@ -121,7 +121,7 @@ public class legendarioActivity extends AppCompatActivity {
             juegoIniciado = true;
             button.setEnabled(false);
             button2.setEnabled(true);
-            String mensajePuntos = ("Puntaje: " + puntos);
+            String mensajePuntos = getString(R.string.puntaje) + " " + puntos;
             tvPuntos.setText(mensajePuntos);
             tvPuntos.setVisibility(View.VISIBLE);
             iniciarMusica();
@@ -173,8 +173,8 @@ public class legendarioActivity extends AppCompatActivity {
     }
 
     private void mostrarFinDeJuego(int puntajeMaximo) {
-        String mensajeFinDeJuego = "Puntos obtenidos: " + puntos;
-        mensajeFinDeJuego += "\nPuntaje máximo: " + puntajeMaximo;
+        String mensajeFinDeJuego = getString(R.string.puntos_obtenidos2) + " " + puntos;
+        mensajeFinDeJuego += getString(R.string.puntaje_maximo) + " " + puntajeMaximo;
         tv2.setText(mensajeFinDeJuego);
         tvPuntos.setVisibility(View.INVISIBLE);
     }
@@ -195,7 +195,7 @@ public class legendarioActivity extends AppCompatActivity {
 
     private void incrementarPuntos() {
         puntos++;
-        String mensajePuntos = ("Puntaje: " + puntos);
+        String mensajePuntos = getString(R.string.puntaje) + " " + puntos;
         tvPuntos.setText(mensajePuntos);
         if (puntos % 10 == 0) {
             musicaVictoria.start();

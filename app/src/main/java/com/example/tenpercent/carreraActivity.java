@@ -132,10 +132,12 @@ public class carreraActivity extends AppCompatActivity {
             juegoIniciado = true;
             button.setEnabled(false);
             button2.setEnabled(true);
-            String mensajePuntos = ("Puntaje: " + puntos);
+            String mensajePuntos = getString(R.string.puntaje) + " " + puntos;
             tvPuntos.setText(mensajePuntos);
-            String mensajeVidas = ("Vidas: " + vidas);
+            tvPuntos.setVisibility(View.VISIBLE);
+            String mensajeVidas = getString(R.string.vidas2) + " " + vidas;
             tvVidas.setText(mensajeVidas);
+            tvVidas.setVisibility(View.VISIBLE);
             musicaFondo.start();
 
             actualizarAccionActual();
@@ -145,12 +147,11 @@ public class carreraActivity extends AppCompatActivity {
 
     private void restarVida() {
         vidas--;
-        String mensajeVidas = ("Vidas: " + vidas);
+        String mensajeVidas = getString(R.string.vidas2) + " " + vidas;
         tvVidas.setText(mensajeVidas);
         musicaVictoria.stop();
         musicaDerrota.start();
         if (vidas <= 0 && juegoIniciado) {
-            timer.cancel();
             detenerJuego();
         } else {
             reiniciarTemporizador(); // Agregar esta línea para reiniciar el temporizador después de restar una vida
@@ -159,12 +160,13 @@ public class carreraActivity extends AppCompatActivity {
     }
 
     private void detenerJuego() {
+        timer.cancel();
         juegoIniciado = false;
         button.setEnabled(true);
         button2.setEnabled(false);
         detenerMusica();
         vidas = 3;
-        String mensajeVidas = ("Vidas: " + vidas);
+        String mensajeVidas = getString(R.string.vidas2) + " " + vidas;
         tvVidas.setText(mensajeVidas);
         // Verificar si el puntaje es mayor que el valor almacenado en las preferencias
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -210,9 +212,11 @@ public class carreraActivity extends AppCompatActivity {
     }
 
     private void mostrarFinDeJuego(int puntajeMaximo) {
-        String mensajeFinDeJuego = "Puntos obtenidos: " + puntos;
-        mensajeFinDeJuego += "\nPuntaje máximo: " + puntajeMaximo;
+        String mensajeFinDeJuego = getString(R.string.puntos_obtenidos2) + " " + puntos;
+        mensajeFinDeJuego += getString(R.string.puntaje_maximo) + " " + puntajeMaximo;
         tv2.setText(mensajeFinDeJuego);
+        tvPuntos.setVisibility(View.INVISIBLE);
+        tvVidas.setVisibility(View.INVISIBLE);
     }
 
 
@@ -233,7 +237,7 @@ public class carreraActivity extends AppCompatActivity {
     private void incrementarPuntos() {
         musicaDerrota.stop();
         puntos++;
-        String mensajePuntos = ("Puntaje: " + puntos);
+        String mensajePuntos = getString(R.string.puntaje) + " " + puntos;
         tvPuntos.setText(mensajePuntos);
         if (puntos % 10 == 0) {
             musicaVictoria.start();

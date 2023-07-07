@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">TenPercent</string>
+    <string name="puntos">Points</string>
+    <string name="prueba">Play</string>
+    <string name="presion_larga">Long Press</string>
+    <string name="agitacion">Shake</string>
+    <string name="simple_tap">Tap</string>
+    <string name="doble_tap">Double Tap</string>
+    <string name="puntos_obtenidos">Points earned</string>
+    <string name="puntos_obtenidos2">Points earned:</string>
+    <string name="puntaje_maximo">\nHighscore:</string>
+    <string name="Jugar">Play</string>
+    <string name="Detener">Stop</string>
+    <string name="deslizar_abajo">Swipe Down</string>
+    <string name="deslizar_arriba">Swipe Up</string>
+    <string name="designed_by">Designed By Matias Diaz</string>
+    <string name="sponsored_by">Sponsored By LircayHub</string>
+    <string name="copyright">© Copyright 2023–2023</string>
+    <string name="puntaje">Score:</string>
+    <string name="vidas">Lives</string>
+    <string name="vidas2">Lives:</string>
+    <string name="vidas_legendario">LEGENDARY MODE</string>
+    <string name="modo_carrera">Race Mode</string>
+    <string name="modo_legendario">Legendary Mode</string>
+    <string name="msj_puntaje_carrera">Highscore (Race Mode): </string>
+    <string name="msj_puntaje_legendario">Highscore (Legendary Mode): </string>
+    <string name="title_activity_settings">Records</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+</resources>

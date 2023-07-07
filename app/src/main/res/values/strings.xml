@@ -7,17 +7,25 @@
     <string name="simple_tap">Tap</string>
     <string name="doble_tap">Doble Tap</string>
     <string name="puntos_obtenidos">Puntos obtenidos</string>
+    <string name="puntos_obtenidos2">Puntos obtenidos:</string>
+    <string name="puntaje_maximo">\nPuntaje Máximo:</string>
     <string name="Jugar">Jugar</string>
     <string name="Detener">Detener</string>
-    <string name="deslizar">Desliza</string>
     <string name="deslizar_abajo">Desliza Abajo</string>
     <string name="deslizar_arriba">Desliza Arriba</string>
     <string name="designed_by">Diseñado por Matias Diaz</string>
     <string name="sponsored_by">Patrocinado por LircayHub</string>
     <string name="copyright">© Copyright 2023–2023</string>
+    <string name="puntaje">Puntaje:</string>
     <string name="vidas">Vidas</string>
+    <string name="vidas2">Vidas:</string>
     <string name="vidas_legendario">MODO LEGENDARIO</string>
+    <string name="modo_carrera">Modo Carrera</string>
+    <string name="modo_legendario">Modo Legendario</string>
+    <string name="msj_puntaje_carrera">Puntaje más alto (Modo Carrera): </string>
+    <string name="msj_puntaje_legendario">Puntaje más alto (Modo Legendario): </string>
     <string name="title_activity_settings">Records</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

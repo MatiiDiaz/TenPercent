@@ -27,8 +27,8 @@ public class SettingsActivity extends AppCompatActivity {
         int puntajeCarrera = sharedPreferences.getInt(KEY_PUNTAJE_CARRERA, 0);
         int puntajeLegendario = sharedPreferences.getInt(KEY_PUNTAJE_LEGENDARIO, 0);
 
-        String mensajePuntajeCarrera = "Puntaje más alto (Modo Carrera): " + puntajeCarrera;
-        String mensajePuntajeLegendario = "Puntaje más alto (Modo Legendario): " + puntajeLegendario;
+        String mensajePuntajeCarrera = getString(R.string.msj_puntaje_carrera) + " " + puntajeCarrera;
+        String mensajePuntajeLegendario = getString(R.string.msj_puntaje_legendario) + " " + puntajeLegendario;
 
         tvPuntajeCarrera.setText(mensajePuntajeCarrera);
         tvPuntajeLegendario.setText(mensajePuntajeLegendario);

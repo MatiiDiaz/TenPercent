@@ -12,13 +12,13 @@
         android:id="@+id/btnModoCarrera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modo Carrera" />
+        android:text="@string/modo_carrera" />
 
     <Button
         android:id="@+id/btnModoLegendario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modo Legendario" />
+        android:text="@string/modo_legendario" />
 
     <ImageButton
         android:id="@+id/btnSettings"
